@@ -31,9 +31,9 @@ Art Assets
 - [x] Single platforms
 - [ ] Larger masses
 - [ ] Harmless enemies
-  - [ ] Clouds
-  - [ ] Star platforms
-  - [x] Balloons
+  - [ ] Clouds - Moves horizontally across screen
+  - [ ] Star platforms - Stationary
+  - [x] Balloons - Moves vertically across screen (bottom to top)
 - [ ] Harmful enemies
   - [ ] Bird - Moves horizontally across screen
   - [ ] Buzzard - Moves horizontally and swoops
