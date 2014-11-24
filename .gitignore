@@ -1,2 +1,5 @@
 $ cat .gitignore
 .idea
+
+lib/*
+!lib/phaser.min.js
