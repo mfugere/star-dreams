@@ -42,14 +42,12 @@ function create() {
 
     cursors = game.input.keyboard.createCursorKeys();
     buttons.jump = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    game.debug.cameraInfo(game.camera, 0, 32);
 }
 
 var spawnRate = 25;
 var spawnTimer = spawnRate;
 function update() {
-    bgs[0].y = Math.round((game.camera.y * 0.9) + 224);
+    bgs[0].y = Math.round((game.camera.y * 0.9) + 256);
 
     player.update();
 
