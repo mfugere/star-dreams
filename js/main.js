@@ -49,7 +49,7 @@ function create() {
 var spawnRate = 25;
 var spawnTimer = spawnRate;
 function update() {
-    bgs[0].y = (game.camera.y * 0.9) + 224;
+    bgs[0].y = Math.round((game.camera.y * 0.9) + 224);
 
     player.update();
 
