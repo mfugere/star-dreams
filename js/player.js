@@ -40,7 +40,7 @@ Player.prototype.update = function () {
         this.sprite.scale.x = -1;
     }
     if (buttons.jump.isDown && this.sprite.body.onFloor()) {
-        this.sprite.body.velocity.y = -450; // change back to -350
+        this.sprite.body.velocity.y = -350;
     }
 
     if (!this.sprite.alive) {
