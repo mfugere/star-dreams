@@ -55,12 +55,11 @@ function update() {
     for (var i in enemies) {
         enemies[i].forEachAlive(function (enemy) {
             if (enemy.instance) {
-                enemy.instance.update();
+                enemy.instance.update(player);
             }
         }, this);
         game.physics.arcade.collide(player.sprite, enemies[i], function (player, enemy) {
             enemy.instance.handleCollision(player);
-            console.log(map);
         }, null, this);
     }
 
@@ -74,8 +73,17 @@ function update() {
             startPos.y = (modifier % 5 === 0) ? (player.sprite.body.position.y + (modifier / 2)) : (player.sprite.body.position.y - modifier);
             startVel.x = (startPos.x === 0) ? 40 : -40;
             startVel.y = 0;
-            var bird = new Enemy(startPos, startVel, "bird", [], birds, 1, 1);
+            var bird = new Enemy(startPos, startVel, "bird", [], birds, null, 1, 1);
             bird.init();
+        } else if (modifier % 71 === 0) {
+            var startPos = {};
+            var startVel = {};
+            startPos.x = (modifier % 2 === 0) ? 0 : game.world.width;
+            startPos.y = (modifier % 5 === 0) ? (player.sprite.body.position.y + (modifier / 2)) : (player.sprite.body.position.y - modifier);
+            startVel.x = (startPos.x === 0) ? 50 : -50;
+            startVel.y = 0;
+            var buzzard = new Enemy(startPos, startVel, "bird", [], birds, "swoop", 1, 1);
+            buzzard.init();
         } else if (modifier % 61 === 0) {
             var startPos = {};
             var startVel = { x: 0, y: -30 };

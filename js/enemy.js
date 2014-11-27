@@ -1,9 +1,10 @@
-function Enemy(startPos, startVel, key, animations, group, maxHealth, damage) {
+function Enemy(startPos, startVel, key, animations, group, attackType, maxHealth, damage) {
     this.startPos = startPos;
     this.startVel = startVel;
     this.key = key;
     this.animations = animations;
     this.group = group;
+    this.attackType = attackType;
     if (maxHealth === undefined) {
         this.maxHealth = 1;
     } else {
@@ -16,7 +17,7 @@ function Enemy(startPos, startVel, key, animations, group, maxHealth, damage) {
     }
     this.anchor = { x: 0.5, y: 1 };
 }
-Enemy.prototype.init = function () {
+Enemy.prototype.init = function() {
     this.sprite = this.group.create(this.startPos.x, this.startPos.y, this.key);
     this.sprite.instance = this;
     this.sprite.anchor.setTo(this.anchor.x, this.anchor.y);
@@ -26,8 +27,9 @@ Enemy.prototype.init = function () {
     }
     this.sprite.body.velocity.setTo(this.startVel.x, this.startVel.y);
     this.sprite.health = this.maxHealth;
-}
-Enemy.prototype.update = function () {
+    this.attacking = false;
+};
+Enemy.prototype.update = function(player) {
     if (this.animations.length !== 0) {
         this.sprite.animations.play(this.animations[0].name);
     }
@@ -35,8 +37,11 @@ Enemy.prototype.update = function () {
         || this.sprite.body.center.y > (game.world.height + this.sprite.body.height) || this.sprite.body.center.y < 0) {
         this.sprite.kill();
     }
-}
-Enemy.prototype.handleCollision = function (player) {
+    if (this.attackType) {
+        this.attack(player);
+    }
+};
+Enemy.prototype.handleCollision = function(player) {
     if (player.body.center.y < this.sprite.body.center.y) {
         player.body.velocity.y = -350;
     } else {
@@ -44,4 +49,7 @@ Enemy.prototype.handleCollision = function (player) {
         player.damage(this.damage);
     }
     this.sprite.damage(1);
-}
+};
+Enemy.prototype.attack = function(target) {
+    Attack.getInstance().attack(this.attackType, this, target);
+};
