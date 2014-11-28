@@ -17,6 +17,7 @@ var layer;
 var player;
 var cursors;
 var birds;
+var buzzards;
 var balloons;
 var buttons = {};
 var enemies;
@@ -37,14 +38,15 @@ function create() {
 
     enemies = [];
     birds = game.add.group(game.world, "birds", false, true, Phaser.Physics.ARCADE);
+    buzzards = game.add.group(game.world, "buzzards", false, true, Phaser.Physics.ARCADE);
     balloons = game.add.group(game.world, "balloons", false, true, Phaser.Physics.ARCADE);
-    enemies.push(birds, balloons);
+    enemies.push(birds, buzzards, balloons);
 
     cursors = game.input.keyboard.createCursorKeys();
     buttons.jump = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 }
 
-var spawnRate = 25;
+var spawnRate = 250;
 var spawnTimer = spawnRate;
 function update() {
     bgs[0].y = Math.round((game.camera.y * 0.9) + 256);
@@ -64,36 +66,8 @@ function update() {
     }
 
     // Randomly spawn enemies
-    var modifier = Math.floor(Math.random() * 512 + 1);
     if (spawnTimer <= 0) {
-        if (modifier % 23 === 0) {
-            var startPos = {};
-            var startVel = {};
-            startPos.x = (modifier % 2 === 0) ? 0 : game.world.width;
-            startPos.y = (modifier % 5 === 0) ? (player.sprite.body.position.y + (modifier / 2)) : (player.sprite.body.position.y - modifier);
-            startVel.x = (startPos.x === 0) ? 40 : -40;
-            startVel.y = 0;
-            var bird = new Enemy(startPos, startVel, "bird", [], birds, null, 1, 1);
-            bird.init();
-        } else if (modifier % 71 === 0) {
-            var startPos = {};
-            var startVel = {};
-            startPos.x = (modifier % 2 === 0) ? 0 : game.world.width;
-            startPos.y = (modifier % 5 === 0) ? (player.sprite.body.position.y + (modifier / 2)) : (player.sprite.body.position.y - modifier);
-            startVel.x = (startPos.x === 0) ? 50 : -50;
-            startVel.y = 0;
-            var buzzard = new Enemy(startPos, startVel, "bird", [], birds, "swoop", 1, 1);
-            buzzard.init();
-        } else if (modifier % 61 === 0) {
-            var startPos = {};
-            var startVel = { x: 0, y: -30 };
-            startPos.x = Math.floor(Math.random() * game.world.width + 1);
-            startPos.y = game.world.height;
-            var animations = [{ name: "wiggle", frames: [0, 1], speed: 1 }];
-            var balloon = new Enemy(startPos, startVel, "balloon", animations, balloons);
-            balloon.init();
-            balloon.sprite.body.setSize(32, 32, 0, -32);
-        }
+        spawnEnemies();
         spawnTimer = spawnRate;
     } else {
         spawnTimer -= 1;
@@ -102,4 +76,50 @@ function update() {
 
 function render() {
 
+}
+
+function spawnEnemies() {
+    var startPos = {};
+    var startVel = {};
+    var modifier = rand(enemies.length);
+    console.log(modifier);
+    switch(modifier) {
+        case 0:
+            if (Phaser.Utils.chanceRoll(33)) {
+                startPos.x = rand(512);
+                startPos.y = game.world.height + 32;
+                startVel = { x: 0, y: -30 };
+                var animations = [
+                    { name: "wiggle", frames: [0, 1], speed: 1 }
+                ];
+                var balloon = new Enemy(startPos, startVel, "balloon", animations, balloons);
+                balloon.init();
+                balloon.sprite.body.setSize(32, 32, 0, -32);
+            }
+            break;
+        case 1:
+            if (Phaser.Utils.chanceRoll(50)) {
+                startPos.x = Phaser.Utils.randomChoice(0, game.world.width);
+                startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
+                startVel.x = (startPos.x === 0) ? 40 : -40;
+                startVel.y = 0;
+                new Enemy(startPos, startVel, "bird", [], birds, null, 1, 1).init();
+            }
+            break;
+        case 2:
+            if (Phaser.Utils.chanceRoll(25)) {
+                startPos.x = Phaser.Utils.randomChoice(0, game.world.width);
+                startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
+                startVel.x = (startPos.x === 0) ? 50 : -50;
+                startVel.y = 0;
+                new Enemy(startPos, startVel, "bird", [], buzzards, "swoop", 1, 1).init();
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+function rand(to, from) {
+    return (from === undefined) ? Math.floor(Math.random() * to) : Math.floor(Math.random() * to + from);
 }

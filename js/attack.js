@@ -1,4 +1,4 @@
-var Attack = (function() {
+var Attack = (function () {
     var instance;
     var attacks;
     var swoopingDistance;
@@ -7,8 +7,7 @@ var Attack = (function() {
         swoopingDistance = { x: 128, y: 256 };
 
         attacks = {
-            swoop: function(actor, target)
-            {
+            swoop: function (actor, target) {
                 var distance = {};
                 distance.x = Math.abs(actor.sprite.body.position.x - target.sprite.body.position.x);
                 if (!actor.attacking && distance.x < swoopingDistance.x) {
@@ -22,13 +21,14 @@ var Attack = (function() {
             }
         };
         return {
-            attack: function(type, actor, target) {
+            attack: function (type, actor, target) {
                 attacks[type](actor, target);
             }
         };
     }
+
     return {
-        getInstance: function() {
+        getInstance: function () {
             if (!instance) {
                 instance = init();
             }
