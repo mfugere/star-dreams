@@ -82,10 +82,9 @@ function spawnEnemies() {
     var startPos = {};
     var startVel = {};
     var modifier = rand(enemies.length);
-    console.log(modifier);
     switch(modifier) {
         case 0:
-            if (Phaser.Utils.chanceRoll(33)) {
+            if (Phaser.Utils.chanceRoll(50)) {
                 startPos.x = rand(512);
                 startPos.y = game.world.height + 32;
                 startVel = { x: 0, y: -30 };
@@ -98,7 +97,7 @@ function spawnEnemies() {
             }
             break;
         case 1:
-            if (Phaser.Utils.chanceRoll(50)) {
+            if (Phaser.Utils.chanceRoll(66)) {
                 startPos.x = Phaser.Utils.randomChoice(0, game.world.width);
                 startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
                 startVel.x = (startPos.x === 0) ? 40 : -40;
@@ -107,7 +106,7 @@ function spawnEnemies() {
             }
             break;
         case 2:
-            if (Phaser.Utils.chanceRoll(25)) {
+            if (Phaser.Utils.chanceRoll(33)) {
                 startPos.x = Phaser.Utils.randomChoice(0, game.world.width);
                 startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
                 startVel.x = (startPos.x === 0) ? 50 : -50;
