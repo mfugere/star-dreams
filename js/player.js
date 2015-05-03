@@ -47,3 +47,7 @@ Player.prototype.update = function () {
         game.destroy(); // TODO: Replace this with something UI-based.
     }
 }
+Player.prototype.damage = function (amt) {
+    this.sprite.health -= amt;
+    if (this.sprite.health <= 0) this.sprite.kill();
+}

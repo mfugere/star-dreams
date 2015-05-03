@@ -1,4 +1,4 @@
-function Enemy(startPos, startVel, key, animations, group, attackType, maxHealth, damage) {
+function Enemy(startPos, startVel, key, animations, group, attackType, maxHealth, attackPts) {
     this.startPos = startPos;
     this.startVel = startVel;
     this.key = key;
@@ -12,10 +12,10 @@ function Enemy(startPos, startVel, key, animations, group, attackType, maxHealth
     } else {
         this.maxHealth = maxHealth;
     }
-    if (damage === undefined) {
-        this.damage = 0;
+    if (attackPts === undefined) {
+        this.attackPts = 0;
     } else {
-        this.damage = damage;
+        this.attackPts = attackPts;
     }
     this.anchor = { x: 0.5, y: 1 };
 }
@@ -48,10 +48,14 @@ Enemy.prototype.handleCollision = function (player) {
         player.body.velocity.y = -350;
     } else {
         player.body.velocity.y *= -1;
-        player.damage(this.damage);
+        player.instance.damage(this.attackPts);
     }
-    this.sprite.damage(1);
+    this.damage(1);
 };
 Enemy.prototype.attack = function (target) {
     Attack.getInstance().attack(this.attackType, this, target);
 };
+Enemy.prototype.damage = function (amt) {
+    this.sprite.health -= amt;
+    if (this.sprite.health <= 0) this.sprite.kill();
+}
