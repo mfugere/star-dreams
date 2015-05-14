@@ -35,10 +35,10 @@ Art Assets
   - [ ] Star platforms - Stationary
   - [x] Balloons - Moves vertically across screen (bottom to top)
 - [ ] Harmful enemies
-  - [ ] Bird - Moves horizontally across screen
-  - [ ] Buzzard - Moves horizontally and swoops
-  - [ ] Bee - Floats about aimlessly
-  - [ ] Wasp - Floats aimlessly and flies towards player
+  - [x] Bird - Moves horizontally across screen
+  - [x] Buzzard - Moves horizontally and swoops
+  - [x] Bee - Floats about aimlessly
+  - [x] Wasp - Floats aimlessly and flies towards player
   - [ ] Balloon man - Moves vertically across screen
   - [ ] Balloon fighter - Moves vertically and shoots projectiles horizontally
   - [ ] Plane - Moves horizontally across screen
@@ -81,7 +81,7 @@ Iterations
 - [x] Bouncing
 - [x] Damage
 - [x] Test harmless enemy
-- [ ] Background
+- [x] Background
 - [ ] Level 1 map
 - [ ] Level 1 final sprites and behaviour
 - [ ] Boss, level completion/transition
