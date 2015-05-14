@@ -7,7 +7,10 @@ function preload() {
     game.load.tilemap('level-1', 'img/tilemap-1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tilesheet-1', 'img/tilesheet-1.png');
     game.load.spritesheet('balloon', 'img/balloon.png', 32, 64);
-    game.load.image('bird', 'img/bird-right-1.png');
+    game.load.image('bird', 'img/bird.png');
+    game.load.image('buzzard', 'img/buzzard.png');
+    game.load.image('bee', 'img/bee.png');
+    game.load.image('wasp', 'img/wasp.png');
     game.load.image('player', 'img/player.png');
 }
 
@@ -39,8 +42,10 @@ function create() {
     enemies = [];
     birds = game.add.group(game.world, "birds", false, true, Phaser.Physics.ARCADE);
     buzzards = game.add.group(game.world, "buzzards", false, true, Phaser.Physics.ARCADE);
+    bees = game.add.group(game.world, "bees", false, true, Phaser.Physics.ARCADE);
+    wasps = game.add.group(game.world, "wasps", false, true, Phaser.Physics.ARCADE);
     balloons = game.add.group(game.world, "balloons", false, true, Phaser.Physics.ARCADE);
-    enemies.push(birds, buzzards, balloons);
+    enemies.push(birds, buzzards, bees, wasps, balloons);
 
     cursors = game.input.keyboard.createCursorKeys();
     buttons.jump = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -111,7 +116,25 @@ function spawnEnemies() {
                 startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
                 startVel.x = (startPos.x === 0) ? 50 : -50;
                 startVel.y = 0;
-                new Enemy(startPos, startVel, "bird", [], buzzards, "swoop", 1, 1).init();
+                new Enemy(startPos, startVel, "buzzard", [], buzzards, "swoop", 1, 1).init();
+            }
+            break;
+        case 3:
+            if (Phaser.Utils.chanceRoll(50)) {
+                startPos.x = Phaser.Utils.randomChoice(0, game.world.width);
+                startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
+                startVel.x = (startPos.x === 0) ? rand(20, 30) : -rand(20, 30);
+                startVel.y = Phaser.Utils.randomChoice(rand(20, 30), -rand(20, 30));
+                new Enemy(startPos, startVel, "bee", [], bees, null, 1, 1, true).init();
+            }
+            break;
+        case 4:
+            if (Phaser.Utils.chanceRoll(25)) {
+                startPos.x = Phaser.Utils.randomChoice(0, game.world.width);
+                startPos.y = (Phaser.Utils.chanceRoll(10)) ? (player.sprite.body.position.y + rand(256)) : (player.sprite.body.position.y - rand(256));
+                startVel.x = (startPos.x === 0) ? rand(20, 40) : -rand(20, 40);
+                startVel.y = Phaser.Utils.randomChoice(rand(20, 40), -rand(20, 40));
+                new Enemy(startPos, startVel, "wasp", [], wasps, "dive", 1, 1, true).init();
             }
             break;
         default:
