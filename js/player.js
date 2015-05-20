@@ -23,7 +23,7 @@ Player.prototype.init = function () {
         this.sprite.animations.add(this.animations[0].name, this.animations[0].frames, this.animations[0].speed, true);
     }
 }
-Player.prototype.update = function () {
+Player.prototype.update = function (layer) {
     this.sprite.body.velocity.x = 0;
     game.physics.arcade.collide(this.sprite, layer);
     if (this.animations.length !== 0) {
