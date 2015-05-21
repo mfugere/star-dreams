@@ -6,24 +6,13 @@ function Level1() {
 
 Level1.prototype = {
 	preload: function () {
-	    this.game.stage.backgroundColor = '#99C0FF';
-
-	    this.load.image('bg1-0', 'img/bg1-0.png');
-	    this.load.tilemap('level-1', 'img/tilemap-1.json', null, Phaser.Tilemap.TILED_JSON);
-	    this.load.image('tilesheet-1', 'img/tilesheet-1.png');
 	    this.load.spritesheet('balloon', 'img/balloon.png', 32, 64);
 	    this.load.image('bird', 'img/bird.png');
 	    this.load.image('buzzard', 'img/buzzard.png');
 	    this.load.image('bee', 'img/bee.png');
 	    this.load.image('wasp', 'img/wasp.png');
-	    this.load.image('player', 'img/player.png');
 	},
 	create: function () {
-		cursors = game.input.keyboard.createCursorKeys();
-		buttons = {
-		    jump: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-		};
-
 	    this.bgs.push(this.game.add.tileSprite(0, 0, this.game.world.width, 512, "bg1-0"));
 	    this.map = this.game.add.tilemap("level-1");
 	    this.map.addTilesetImage("tilesheet-1");
