@@ -16,7 +16,7 @@ Level1.prototype = {
 	    this.bgs.push(this.game.add.tileSprite(0, 0, this.game.world.width, 512, "bg1-0"));
 	    this.map = this.game.add.tilemap("level-1");
 	    this.map.addTilesetImage("tilesheet-1");
-	    this.map.setCollisionBetween(0, 11);
+	    this.map.setCollisionBetween(0, 20);
 	    this.layer = this.map.createLayer("Tile Layer 1");
 	    this.layer.resizeWorld();
 
